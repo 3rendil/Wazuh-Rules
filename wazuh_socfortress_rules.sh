@@ -141,7 +141,7 @@ health_check() {
         return 1
     else
         logger "Wazuh-Manager Service is healthy. Thanks for checking us out :)"
-        logger "Get started with our free-for-life tier here: https://www.socfortress.co/trial.html Happy Defending!"
+        # logger "Get started with our free-for-life tier here: https://www.socfortress.co/trial.html Happy Defending!"
         rm -rf /tmp/Wazuh-Rules
         return 0
     fi
@@ -164,6 +164,14 @@ move_decoders() {
             mv "/var/ossec/etc/rules/$decoder" "/var/ossec/etc/decoders/"
         fi
     done
+}
+
+# Move list files to appropriate location
+move_lists() {
+    logger "Moving lists (common-ports/malicious-powershell/bash_profile) to lists directory"
+    mv "/tmp/Wazuh-Rules/Windows_Sysmon/common-ports" "/var/ossec/etc/lists/"
+    mv "/tmp/Wazuh-Rules/Windows Powershell/malicious-powershell" "/var/ossec/etc/lists/"
+    mv "/tmp/Wazuh-Rules/Auditd/bash_profile" "/var/ossec/etc/lists/"
 }
 
 # Clone and install SOCFortress rules
@@ -192,7 +200,7 @@ clone_rules() {
     \cp -r /var/ossec/etc/rules/* /tmp/wazuh_rules_backup/
     
     # Clone and install new rules
-    if ! git clone https://github.com/socfortress/Wazuh-Rules.git /tmp/Wazuh-Rules; then
+    if ! git clone https://github.com/3rendil/Wazuh-Rules.git /tmp/Wazuh-Rules; then
         logger -e "Failed to clone SOCFortress rules repository"
         return 1
     fi
@@ -202,6 +210,9 @@ clone_rules() {
     
     # Move decoders to appropriate directory
     move_decoders
+
+    # Move lists to appropriate directory
+    move_lists
     
     # Save version info
     /var/ossec/bin/wazuh-control info 2>&1 | tee /tmp/version.txt
@@ -209,6 +220,8 @@ clone_rules() {
     # Set permissions
     chown wazuh:wazuh /var/ossec/etc/rules/*
     chmod 660 /var/ossec/etc/rules/*
+    chown wazuh:wazuh /var/ossec/etc/lists/*
+    chmod 660 /var/ossec/etc/lists/*
     
     # Restart service
     logger "Rules downloaded, attempting to restart the Wazuh-Manager service"
