@@ -849,4 +849,31 @@
     <description>Exclude ossec</description>
     <options>no_full_log</options>
   </rule>
+
+  <rule id="990001" level="1">
+    <if_sid>112155</if_sid>
+	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\WINDOWS\\\\system32\\\\services\.exe$</field>
+    <field name="win.eventdata.targetObject" type="pcre2">(?i)HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Services\\\\[^\\\\]+\\\\(ImagePath|Type|Start)</field>
+    <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
+    <description>Exclusion SOCFortress - service.exe modifying standard services (T1543.003)</description>
+    <options>no_full_log</options>
+  </rule>
+  
+  <rule id="990002" level="1">
+    <if_sid>112143</if_sid>
+	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\WINDOWS\\\\system32\\\\services\.exe$</field>
+    <field name="win.eventdata.targetObject" type="pcre2">(?i)HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Services\\\\[^\\\\]+\\\\(ImagePath|Type|Start)</field>
+    <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
+    <description>Exclusion SOCFortress - service.exe Service Registry Event</description>
+    <options>no_full_log</options>
+  </rule>
+  
+  <!-- Exclude OneDrive Process Creation (T1036 Masquerading) -->
+  <rule id="990003" level="3">
+    <if_sid>100606</if_sid>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\\\Microsoft\\\\OneDrive\\\\[^\\\\]+\\\\(OneDriveStandaloneUpdater|Microsoft\.SharePoint|OneDriveLauncher|FileCoAuth)\.exe$</field>
+    <field name="win.eventdata.company" type="pcre2">(?i)^Microsoft Corporation$</field>
+    <description>Exclusion - OneDrive legitimate process creation (T1036)</description>
+    <options>no_full_log</options>
+  </rule>
 </group>
