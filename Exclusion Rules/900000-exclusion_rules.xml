@@ -873,7 +873,25 @@
     <if_sid>100606</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i)\\\\Microsoft\\\\OneDrive\\\\[^\\\\]+\\\\(OneDriveStandaloneUpdater|Microsoft\.SharePoint|OneDriveLauncher|FileCoAuth)\.exe$|(?i)\\\\Microsoft\\\\OneDrive\\\\(OneDriveStandaloneUpdater|Microsoft\.SharePoint|OneDriveLauncher|FileCoAuth)\.exe$</field>
     <field name="win.eventdata.company" type="pcre2">(?i)^Microsoft Corporation$</field>
-    <description>Exclusion - OneDrive legitimate process creation (T1036)</description>
+    <description>Exclusion SOCFortress - OneDrive legitimate process creation (T1036)</description>
     <options>no_full_log</options>
+  </rule>
+
+  <!-- Exclude Wazuh Legitimate command -->
+  <rule id="990004" level="1">
+  <if_sid>200110</if_sid>
+  <field name="audit.command">node|wazuh-modulesd</field>
+  <field name="audit.exe">/usr/share/wazuh|/var/ossec/bin/wazuh</field>
+  <description>Exclude Wazuh Legitimate command.</description>
+  <options>no_full_log</options>
+  </rule>
+  
+  <!-- Exclude Filebeat Legitimate command -->
+  <rule id="990005" level="1">
+  <if_sid>200110</if_sid>
+  <field name="audit.command">filebeat</field>
+  <field name="audit.exe">/usr/share/filebeat/bin/filebeat</field>
+  <description>Exclude Filebeat Legitimate command.</description>
+  <options>no_full_log</options>
   </rule>
 </group>
