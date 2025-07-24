@@ -371,7 +371,7 @@
     <if_sid>200051</if_sid>
     <field name="name" type="pcre2">(?i)^Remote Thread Creation In Uncommon Target Image$</field>
     <field name="event.TargetImage" type="pcre2">(?i)^C:\\Windows\\System32\\spoolsv\.exe$|^C:\\windows\\Explorer\.EXE$</field>
-    <field name="event.SourceUser" type="pcre2">(?i)^NT AUTHORITY\\SYSTEM$</field>
+    <field name="event.SourceUser" type="pcre2">(?i)^NT AUTHORITY\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
     <field name="event.SourceImage" type="pcre2">(?i)^C:\\Program Files\\socfortress\\sysinternals\\logonsessions64.exe$</field>
     <description>Exclude OpenAudit Scanning SIGMA Alert</description>
     <options>no_full_log</options>
@@ -721,7 +721,7 @@
     <if_sid>106104</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1\.0\\\\powershell\.exe$</field>
     <field name="win.eventdata.imageLoaded" type="pcre2">(?i)^C:\\\\Windows\\\\Microsoft\.NET\\\\Framework64\\\\v\d+\.\d+\.\d+\\\\clr\.dll$|(?i)^C:\\\\Windows\\\\Microsoft\.NET\\\\Framework64\\\\v\d+\.\d+\.\d+\\\\mscoreei\.dll$|(?i)^C:\\\\Windows\\\\Microsoft\.NET\\\\Framework64\\\\v\d+\.\d+\.\d+\\\\clrjit\.dll$|(?i)^C:\\\\Windows\\\\assembly\\\\NativeImages_v\d+\.\d+\.\d+_\d+\\\\System\.Mana[a-zA-Z0-9#]+\\\\[a-fA-F0-9]+\\\\System\.Management\.Automation\.ni\.dll$</field>
-    <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$</field>
+    <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
     <description>Exclude Common Powershell Image Loading.</description>
     <options>no_full_log</options>
   </rule>
@@ -730,7 +730,7 @@
     <if_sid>112122</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\WINDOWS\\\\system32\\\\services\.exe$</field>
     <field name="win.eventdata.targetObject" type="pcre2">(?i)^HKLM\\\\System\\\\CurrentControlSet\\\\Services\\\\MainIC\\\\ErrorControl$|(?i)^HKLM\\\\System\\\\CurrentControlSet\\\\Services\\\\WatchdogIC\\\\ErrorControl$|(?i)^HKLM\\\\System\\\\CurrentControlSet\\\\Services\\\\DispatcherIC\\\\ErrorControl$|(?i)^HKLM\\\\System\\\\CurrentControlSet\\\\Services\\\\MainIC\\\\Type$|(?i)^HKLM\\\\System\\\\CurrentControlSet\\\\Services\\\\WatchdogIC\\\\Type$|(?i)^HKLM\\\\System\\\\CurrentControlSet\\\\Services\\\\DispatcherIC\\\\Type$</field>
-    <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$</field>
+    <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
     <description>Exclude Registry Value Set Events for common.</description>
     <options>no_full_log</options>
   </rule>
@@ -747,7 +747,7 @@
   <rule id="900105" level="1">
     <if_sid>109101</if_sid>
     <field name="win.eventdata.sourceImage" type="pcre2">(?i)^C:\\\\Windows\\\\SysWOW64\\\\WerFault\.exe$|(?i)^C:\\\\Windows\\\\system32\\\\WerFault\.exe$|(?i)^C:\\\\Program Files \(x86\)\\\\Dell\\\\UpdateService\\\\ServiceShell\.exe$</field>
-    <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$</field>
+    <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
     <description>Exclude WerFault Process Access.</description>
     <options>no_full_log</options>
   </rule>
@@ -755,7 +755,7 @@
   <rule id="900106" level="1">
     <if_sid>109102</if_sid>
     <field name="win.eventdata.sourceImage" type="pcre2">(?i)^C:\\\\Windows\\\\SysWOW64\\\\WerFault\.exe$|(?i)^C:\\\\Windows\\\\system32\\\\WerFault\.exe$|(?i)^C:\\\\Program Files \(x86\)\\\\Dell\\\\UpdateService\\\\ServiceShell\.exe$|(?i)^C:\\\\Program Files\\\\printix\.net\\\\Printix Client\\\\PrintixService\.exe$</field>
-    <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$</field>
+    <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
     <description>Exclude WerFault Process Access.</description>
     <options>no_full_log</options>
   </rule>
