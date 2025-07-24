@@ -871,7 +871,7 @@
   <!-- Exclude OneDrive Process Creation (T1036 Masquerading) -->
   <rule id="990003" level="3">
     <if_sid>100606</if_sid>
-    <field name="win.eventdata.image" type="pcre2">(?i)\\\\Microsoft\\\\OneDrive\\\\[^\\\\]+\\\\(OneDriveStandaloneUpdater|Microsoft\.SharePoint|OneDriveLauncher|FileCoAuth)\.exe$|(?i)\\\\Microsoft\\\\OneDrive\\\\(OneDriveStandaloneUpdater|Microsoft\.SharePoint|OneDriveLauncher|FileCoAuth)\.exe$</field>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\\\Microsoft\\\\OneDrive\\\\[^\\\\]+\\\\(OneDrive|OneDriveSetup|OneDriveStandaloneUpdater|Microsoft\.SharePoint|OneDriveLauncher|FileCoAuth|FileSyncConfig)\.exe$|\\\\Microsoft\\\\OneDrive\\\\(OneDrive|OneDriveSetup|OneDriveStandaloneUpdater|Microsoft\.SharePoint|OneDriveLauncher|FileCoAuth|FileSyncConfig)\.exe$</field>
     <field name="win.eventdata.company" type="pcre2">(?i)^Microsoft Corporation$</field>
     <description>Exclusion SOCFortress - OneDrive legitimate process creation (T1036)</description>
     <options>no_full_log</options>
