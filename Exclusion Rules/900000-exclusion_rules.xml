@@ -877,8 +877,27 @@
     <options>no_full_log</options>
   </rule>
 
-  <!-- Exclude Wazuh Legitimate command -->
+  <!-- Exclude Legitimate Windows Update Registry Event (T1053 Scheduled Task) -->
   <rule id="990004" level="1">
+    <if_sid>112120</if_sid>
+	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\WINDOWS\\\\system32\\\\svchost\.exe$</field>
+    <field name="win.eventdata.targetObject" type="pcre2">(?i)HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NET\\\\CurrentVersion\\\\Schedule\\\\TaskCache\\\\Tree\\\\Microsoft\\\\Windows\\\\WindowsUpdate\\\\[^\\\\]+\\\\Index|HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NET\\\\CurrentVersion\\\\Schedule\\\\TaskCache\\\\Tree\\\\Microsoft\\\\Windows\\\\UpdateOrchestrator\\\\[^\\\\]+\\\\Index</field>
+    <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
+    <description>Exclusion SOCFortress - Windows Update legitimate Registry Event (T1053)</description>
+    <options>no_full_log</options>
+  </rule>
+
+  <!-- Exclude Legitimate MSEdge Registry Event -->
+  <rule id="990005" level="3">
+    <if_sid>112143</if_sid>
+	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Program Files \(x86\)\\\\Microsoft\\\\Edge\\\\Application\\\\msedge\.exe$</field>
+    <field name="win.eventdata.targetObject" type="pcre2">(?i)HKLM\\\\System\\\\CurrentControlSet\\\\Services\\\\bam\\\\State\\\\UserSettings\\\\[^\\\\]+\\\\Program Files \(x86\)\\\\Microsoft\\\\Edge\\\\Application\\\\msedge\.exe</field>
+    <description>Exclusion SOCFortress - MSEdge legitimate Registry Event (T1053)</description>
+    <options>no_full_log</options>
+  </rule>
+
+  <!-- Exclude Wazuh Legitimate command -->
+  <rule id="990101" level="1">
   <if_sid>200110</if_sid>
   <field name="audit.command">node|wazuh-modulesd</field>
   <field name="audit.exe">/usr/share/wazuh|/var/ossec/bin/wazuh</field>
@@ -887,7 +906,7 @@
   </rule>
   
   <!-- Exclude Filebeat Legitimate command -->
-  <rule id="990005" level="1">
+  <rule id="990102" level="1">
   <if_sid>200110</if_sid>
   <field name="audit.command">filebeat</field>
   <field name="audit.exe">/usr/share/filebeat/bin/filebeat</field>
