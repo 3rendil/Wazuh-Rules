@@ -890,8 +890,8 @@
   <!-- Exclude Legitimate MSEdge Registry Event -->
   <rule id="990005" level="3">
     <if_sid>112143</if_sid>
-	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Program Files \(x86\)\\\\Microsoft\\\\Edge\\\\Application\\\\msedge\.exe$</field>
-    <field name="win.eventdata.targetObject" type="pcre2">(?i)HKLM\\\\System\\\\CurrentControlSet\\\\Services\\\\bam\\\\State\\\\UserSettings\\\\[^\\\\]+\\\\Program Files \(x86\)\\\\Microsoft\\\\Edge\\\\Application\\\\msedge\.exe</field>
+    <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Program Files \(x86\)\\\\Microsoft\\\\Edge\\\\Application\\\\msedge\.exe$</field>
+    <field name="win.eventdata.targetObject" type="pcre2">(?i)HKLM\\\\System\\\\CurrentControlSet\\\\Services\\\\bam\\\\State\\\\UserSettings\\\\S-1-5-21-\\d{10}-\\d{10}-\\d{10}-\\d{4}\\\\Device\\\\HarddiskVolume\\d+\\\\Program Files \(x86\)\\\\Microsoft\\\\Edge\\\\Application\\\\msedge\.exe$</field>
     <description>Exclusion SOCFortress - MSEdge legitimate Registry Event (T1053)</description>
     <options>no_full_log</options>
   </rule>
