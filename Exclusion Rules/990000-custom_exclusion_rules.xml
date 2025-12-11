@@ -1,0 +1,85 @@
+<group name="rule_exclusion,">
+<rule id="990001" level="1">
+    <if_sid>112155</if_sid>
+	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\WINDOWS\\\\system32\\\\services\.exe$</field>
+    <field name="win.eventdata.targetObject" type="pcre2">(?i)HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Services\\\\[^\\\\]+\\\\(ImagePath|Type|Start)</field>
+    <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
+    <description>Exclusion SOCFortress - service.exe modifying standard services (T1543.003)</description>
+    <options>no_full_log</options>
+  </rule>
+  
+  <rule id="990002" level="1">
+    <if_sid>112143</if_sid>
+	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\WINDOWS\\\\system32\\\\services\.exe$</field>
+    <field name="win.eventdata.targetObject" type="pcre2">(?i)HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Services\\\\[^\\\\]+\\\\(ImagePath|Type|Start)</field>
+    <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
+    <description>Exclusion SOCFortress - service.exe Service Registry Event</description>
+    <options>no_full_log</options>
+  </rule>
+  
+  <!-- Exclude OneDrive Process Creation (T1036 Masquerading) -->
+  <rule id="990003" level="3">
+    <if_sid>100606</if_sid>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\\\Microsoft\\\\OneDrive\\\\[^\\\\]+\\\\(OneDrive|OneDriveSetup|OneDriveStandaloneUpdater|Microsoft\.SharePoint|OneDriveLauncher|FileCoAuth|FileSyncConfig)\.exe$|\\\\Microsoft\\\\OneDrive\\\\(OneDrive|OneDriveSetup|OneDriveStandaloneUpdater|Microsoft\.SharePoint|OneDriveLauncher|FileCoAuth|FileSyncConfig)\.exe$</field>
+    <field name="win.eventdata.company" type="pcre2">(?i)^Microsoft Corporation$</field>
+    <description>Exclusion SOCFortress - OneDrive legitimate process creation (T1036)</description>
+    <options>no_full_log</options>
+  </rule>
+
+  <!-- Exclude Legitimate Windows Update Registry Event (T1053 Scheduled Task) -->
+  <rule id="990004" level="1">
+    <if_sid>112120</if_sid>
+	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\WINDOWS\\\\system32\\\\svchost\.exe$</field>
+    <field name="win.eventdata.targetObject" type="pcre2">(?i)HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NET\\\\CurrentVersion\\\\Schedule\\\\TaskCache\\\\Tree\\\\Microsoft\\\\Windows\\\\WindowsUpdate\\\\[^\\\\]+\\\\Index|HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NET\\\\CurrentVersion\\\\Schedule\\\\TaskCache\\\\Tree\\\\Microsoft\\\\Windows\\\\UpdateOrchestrator\\\\[^\\\\]+\\\\Index</field>
+    <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
+    <description>Exclusion SOCFortress - Windows Update legitimate Registry Event (T1053)</description>
+    <options>no_full_log</options>
+  </rule>
+
+  <!-- Exclude Legitimate MSEdge Registry Event -->
+  <rule id="990005" level="1">
+    <if_sid>112143</if_sid>
+    <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Program Files \(x86\)\\\\Microsoft\\\\Edge\\\\Application\\\\msedge\.exe$</field>
+    <field name="win.eventdata.targetObject" type="pcre2">(?i)HKLM\\\\System\\\\CurrentControlSet\\\\Services\\\\bam\\\\State\\\\UserSettings\\\\[^\\\\]+\\\\\\\\Device\\\\[^\\\\]+\\\\Program Files \(x86\)\\\\Microsoft\\\\Edge\\\\Application\\\\msedge\.exe$</field>
+    <description>Exclusion SOCFortress - MSEdge legitimate Registry Event (T1053)</description>
+    <options>no_full_log</options>
+  </rule>
+
+    <!-- Lower Sev for Sysmon - Event 13 - RegistryEvent. Triggers many noises and FPs at boot or logon -->
+  <rule id="990006" level="3" frequency="4" timeframe="60">
+    <!--<if_sid>112143</if_sid>-->
+	<if_matched_sid>112143</if_matched_sid>
+	<same_field>win.eventdata.image</same_field>
+	<!--<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\(svchost\.exe|services\.exe)$</field>-->
+    <description>Exclude noise: Multiple Sysmon Event 13 from svchost.exe or services.exe in a short time (e.g., during startup)</description>
+    <options>no_full_log</options>
+  </rule>
+
+  <!-- Lower Sev for SearchApp File Dropped. Triggers many noises and FPs -->
+  <rule id="990007" level="3">
+    <if_sid>92200</if_sid>
+	<!-- <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\WINDOWS\\\\system32\\\\services\.exe$</field> -->
+	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\WINDOWS\\\\SystemApps\\\\[^\\\\]+\\\\SearchApp.exe$</field>
+    <!--<field name="win.eventdata.user" type="pcre2" negate="yes">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>-->
+    <description>Exclude SearchApp False Positive</description>
+    <options>no_full_log</options>
+  </rule>
+
+  <!-- Exclude Wazuh Legitimate command -->
+  <rule id="990101" level="1">
+  <if_sid>200110</if_sid>
+  <field name="audit.command">node|wazuh-modulesd</field>
+  <field name="audit.exe">/usr/share/wazuh|/var/ossec/bin/wazuh</field>
+  <description>Exclude Wazuh Legitimate command.</description>
+  <options>no_full_log</options>
+  </rule>
+  
+  <!-- Exclude Filebeat Legitimate command -->
+  <rule id="990102" level="1">
+  <if_sid>200110</if_sid>
+  <field name="audit.command">filebeat</field>
+  <field name="audit.exe">/usr/share/filebeat/bin/filebeat</field>
+  <description>Exclude Filebeat Legitimate command.</description>
+  <options>no_full_log</options>
+  </rule>
+</group>
