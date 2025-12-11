@@ -94,10 +94,10 @@
   
   <rule id="990011" level="1">
     <if_sid>112143</if_sid>
-	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\wevutil\.exe$</field>
-	<field name="win.eventdata.targetObject" type="pcre2">(?i)HKLM\\\\SOFTWARE\\\\Microsoft\\\\CurrentVersion\\\\WINEVT\\\\Channels\\\\Microsoft-Windows-Windows Defender/(Operational|WHC)\\\\(OwningPublisher|Enabled|Isolation|ChannelAccess|MaxSize|MaxSizeUpper|Type)$</field>
+	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\wevtutil\.exe$</field>
+	<field name="win.eventdata.targetObject" type="pcre2">(?i)HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\WINEVT\\\\Channels\\\\[^\\\\]+\\\\(OwningPublisher|Enabled|Isolation|ChannelAccess|MaxSize|MaxSizeUpper|Type)$</field>
 	<field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
-    <description>Exclude noise: Multiple Sysmon Event 13 from wevutil.exe on common registry key (e.g., during logon)</description>
+    <description>Exclude noise: Multiple Sysmon Event 13 from wevtutil.exe on common registry key (e.g., during logon)</description>
     <options>no_full_log</options>
   </rule>
 
