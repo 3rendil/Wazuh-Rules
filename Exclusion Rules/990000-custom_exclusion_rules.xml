@@ -101,6 +101,14 @@
     <options>no_full_log</options>
   </rule>
 
+  <rule id="990012" level="3">
+    <if_sid>61618</if_sid>
+    <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\svchost\.exe$</field>
+	<match>LocalService</match>
+    <field name="win.eventdata.parentProcessGuid">{00000000-0000-0000-0000-000000000000}</field>
+    <description>Ignore svchost.exe boot-time processes (false positive)</description>
+  </rule>
+
   <!-- ========== Linux Custom Exclusion rules =========== -->
 
   <!-- Exclude Wazuh Legitimate command -->
