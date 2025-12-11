@@ -19,7 +19,7 @@
   </rule>
   
   <!-- Exclude OneDrive Process Creation (T1036 Masquerading) -->
-  <rule id="990003" level="3">
+  <rule id="990003" level="1">
     <if_sid>100606</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i)\\\\Microsoft\\\\OneDrive\\\\[^\\\\]+\\\\(OneDrive|OneDriveSetup|OneDriveStandaloneUpdater|Microsoft\.SharePoint|OneDriveLauncher|FileCoAuth|FileSyncConfig)\.exe$|\\\\Microsoft\\\\OneDrive\\\\(OneDrive|OneDriveSetup|OneDriveStandaloneUpdater|Microsoft\.SharePoint|OneDriveLauncher|FileCoAuth|FileSyncConfig)\.exe$</field>
     <field name="win.eventdata.company" type="pcre2">(?i)^Microsoft Corporation$</field>
@@ -76,7 +76,7 @@
   
   <rule id="990009" level="1">
     <if_sid>112143</if_sid>
-	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\wbem\\\\WMIADAP\.exe$</field>
+	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\wbem\\\\WMIADAP\.EXE$</field>
 	<field name="win.eventdata.targetObject" type="pcre2">(?i)HKLM\\\\System\\\\CurrentControlSet\\\\Services\\\\WmiApRpl\\\\Performance\\\\(PerfIniFile|Last Counter|Last Help|First Counter|First Help|Object List)$</field>
 	<field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
     <description>Exclude noise: Multiple Sysmon Event 13 from WMIADAP.exe on common registry key (e.g., during logon)</description>
