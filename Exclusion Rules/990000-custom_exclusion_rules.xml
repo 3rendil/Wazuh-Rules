@@ -45,18 +45,18 @@
     <options>no_full_log</options>
   </rule>
 
-    <!-- Lower Sev for Sysmon - Event 13 - RegistryEvent. Triggers many noises and FPs at boot or logon -->
-  <rule id="990006" level="3" frequency="4" timeframe="60">
-    <!--<if_sid>112143</if_sid>-->
-	<if_matched_sid>112143</if_matched_sid>
-	<same_field>win.eventdata.image</same_field>
-	<!--<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\(svchost\.exe|services\.exe)$</field>-->
-    <description>Exclude noise: Multiple Sysmon Event 13 from svchost.exe or services.exe in a short time (e.g., during startup)</description>
+  <!-- Lower Sev for Sysmon - Event 13 - RegistryEvent. Triggers many noises and FPs at boot or logon -->
+  <rule id="990006" level="1">
+    <if_sid>112143,112120</if_sid>
+	<!--<if_matched_sid>112143</if_matched_sid>-->
+	<!--<same_field>win.eventdata.image</same_field>-->
+	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\(svchost\.exe|services\.exe)$</field>
+    <description>Exclude noise: Multiple Sysmon Event 13 from svchost.exe or services.exe (e.g., during startup)</description>
     <options>no_full_log</options>
   </rule>
 
   <!-- Lower Sev for SearchApp File Dropped. Triggers many noises and FPs -->
-  <rule id="990007" level="3">
+  <rule id="990007" level="1">
     <if_sid>92200</if_sid>
 	<!-- <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\WINDOWS\\\\system32\\\\services\.exe$</field> -->
 	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\WINDOWS\\\\SystemApps\\\\[^\\\\]+\\\\SearchApp.exe$</field>
