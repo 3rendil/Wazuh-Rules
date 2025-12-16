@@ -110,7 +110,7 @@
   </rule>
 
   <rule id="990013" level="1">
-    <if_group>sysmon_event_13</if_group>
+    <if_group>sysmon_event_13,sysmon</if_group>
     <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\winsxs\\\\amd64_microsoft-windows-servicingstack_[A-Za-z0-9\-\.]+(?:_[A-Za-z0-9\-\.]+)*\\\\TiWorker\.exe$</field>
     <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
     <description>Exclude Sysmon 13 noise: TiWorker - Windows Module Installer Worker.</description>
