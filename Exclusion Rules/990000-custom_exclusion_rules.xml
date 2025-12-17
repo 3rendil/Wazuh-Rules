@@ -124,6 +124,14 @@
     <description>Exclude Sysmon 13 noise: spoolsv.exe.</description>
     <options>no_full_log</options>
   </rule>
+	
+  <rule id="990015" level="1">
+    <if_sid>92205</if_sid>
+    <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell\.exe$</field>
+    <field name="win.eventdata.targetFilename" type="pcre2">(?i)^C:\\\\Windows\\\\SystemTemp\\\\__PSScriptPolicyTest</field>
+    <options>no_full_log</options>
+    <description>Exclude powershell acreating temporary file created by PowerShell to test script execution policies.</description>
+  </rule>
 
   <!-- ========== Linux Custom Exclusion rules =========== -->
 
