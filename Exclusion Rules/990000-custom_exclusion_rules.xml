@@ -153,6 +153,14 @@
     <options>no_full_log</options>
   </rule>
 
+  <rule id="990018" level="1">
+    <if_group>sysmon_event_13|sysmon_event_11</if_group>
+    <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\ProgramData\\\\Microsoft\\\\Windows Defender\\\\Platform\\\\[A-Za-z0-9.-]+\\\\MsMpEng\.exe$</field>
+    <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
+    <description>Exclude Sysmon 11 & 13 noise: MsMpEng.exe.</description>
+    <options>no_full_log</options>
+  </rule>
+
   <!-- ========== Linux Custom Exclusion rules =========== -->
 
   <!-- Exclude Wazuh Legitimate command -->
