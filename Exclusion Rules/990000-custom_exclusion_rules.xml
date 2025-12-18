@@ -139,7 +139,7 @@
     <field name="win.eventdata.parentImage">(?i)^C:\\\\Windows\\\\System32\\\\svchost\.exe$</field>
     <field name="win.eventdata.parentCommandLine" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\svchost\.exe -k DcomLaunch -p$</field>
     <field name="win.eventdata.commandLine" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\wbem\\\\wmiprvse\.exe -secured -Embedding$</field>
-    <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\NETWORK SERVICE$|^AUTORITE NT\\\\SERVICE RÉSEAU$</field>
+    <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$|^NT AUTHORITY\\\\NETWORK SERVICE$|^AUTORITE NT\\\\SERVICE RÉSEAU$</field>
     <description>Exclude EventID 1 noise: WMI standard Windows</description>
     <options>no_full_log</options>
   </rule>
