@@ -136,7 +136,7 @@
   <rule id="990016" level="1">
     <if_sid>100125</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\System32\\\\wbem\\\\WmiPrvSE\.exe$</field>
-    <field name="win.eventdata.parentImage type="pcre2"">(?i)^C:\\\\Windows\\\\System32\\\\svchost\.exe$</field>
+    <field name="win.eventdata.parentImage" type="pcre2">(?i)^C:\\\\Windows\\\\System32\\\\svchost\.exe$</field>
     <field name="win.eventdata.parentCommandLine" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\svchost\.exe -k DcomLaunch -p$</field>
     <field name="win.eventdata.commandLine" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\wbem\\\\wmiprvse\.exe -secured -Embedding$</field>
     <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$|^NT AUTHORITY\\\\NETWORK SERVICE$|^AUTORITE NT\\\\SERVICE RÉSEAU$</field>
