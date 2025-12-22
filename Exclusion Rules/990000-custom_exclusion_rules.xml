@@ -135,8 +135,8 @@
 
   <rule id="990016" level="1">
     <if_sid>100125</if_sid>
-    <field name="win.eventdata.image">(?i)^C:\\\\Windows\\\\System32\\\\wbem\\\\WmiPrvSE\.exe$</field>
-    <field name="win.eventdata.parentImage">(?i)^C:\\\\Windows\\\\System32\\\\svchost\.exe$</field>
+    <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\System32\\\\wbem\\\\WmiPrvSE\.exe$</field>
+    <field name="win.eventdata.parentImage type="pcre2"">(?i)^C:\\\\Windows\\\\System32\\\\svchost\.exe$</field>
     <field name="win.eventdata.parentCommandLine" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\svchost\.exe -k DcomLaunch -p$</field>
     <field name="win.eventdata.commandLine" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\wbem\\\\wmiprvse\.exe -secured -Embedding$</field>
     <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$|^NT AUTHORITY\\\\NETWORK SERVICE$|^AUTORITE NT\\\\SERVICE RÉSEAU$</field>
@@ -146,7 +146,7 @@
   
   <rule id="990017" level="1">
     <if_sid>92154</if_sid>
-    <field name="win.eventdata.image">(?i)^C:\\\\Windows\\\\System32\\\\svchost\.exe$|^C:\\\\Windows\\\\System32\\\\taskhostw\.exe$|^C:\\\\Windows\\\\System32\\\\MoUsoCoreWorker\.exe$|^C:\\\\Windows\\\\System32\\\\sppsvc\.exe$|^C:\\\\Windows\\\\System32\\\\CompatTelRunner\.exe$|^C:\\\\Windows\\\\System32\\\\DeviceCensus\.exe$|^C:\\\\Windows\\\\System32\\\\SrTasks\.exe$|^C:\\\\Windows\\\\System32\\\\WaaSMedicAgent\.exe$|^C:\\\\Windows\\\\Microsoft\.NET\\\\Framework\\\\v4\.0\.30319\\\\ngen\.exe$|^C:\\\\ProgramData\\\\Microsoft\\\\Windows Defender\\\\Platform\\\\[A-Za-z0-9.-]+\\\\MsMpEng\.exe$||^C:\\\\Program Files \(x86\)\\\\Microsoft\\\\EdgeUpdate\\\\MicrosoftEdgeUpdate\.exe$</field>
+    <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\System32\\\\svchost\.exe$|^C:\\\\Windows\\\\System32\\\\taskhostw\.exe$|^C:\\\\Windows\\\\System32\\\\MoUsoCoreWorker\.exe$|^C:\\\\Windows\\\\System32\\\\sppsvc\.exe$|^C:\\\\Windows\\\\System32\\\\CompatTelRunner\.exe$|^C:\\\\Windows\\\\System32\\\\DeviceCensus\.exe$|^C:\\\\Windows\\\\System32\\\\SrTasks\.exe$|^C:\\\\Windows\\\\System32\\\\WaaSMedicAgent\.exe$|^C:\\\\Windows\\\\Microsoft\.NET\\\\Framework\\\\v4\.0\.30319\\\\ngen\.exe$|^C:\\\\ProgramData\\\\Microsoft\\\\Windows Defender\\\\Platform\\\\[A-Za-z0-9.-]+\\\\MsMpEng\.exe$||^C:\\\\Program Files \(x86\)\\\\Microsoft\\\\EdgeUpdate\\\\MicrosoftEdgeUpdate\.exe$</field>
 	<field name="win.eventdata.imageLoaded" type="pcre2">(?i)^C:\\\\Windows\\\\(system32|SysWOW64)\\\\taskschd\.dll$</field>
 	<field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$|^NT AUTHORITY\\\\NETWORK SERVICE$|^AUTORITE NT\\\\SERVICE RÉSEAU$</field>
 	<description>Exclude EventID 7 noises when some legit programs loads taskschd.dll</description>
