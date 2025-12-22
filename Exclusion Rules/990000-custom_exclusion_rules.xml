@@ -127,7 +127,7 @@
 	
   <rule id="990015" level="1">
     <if_sid>92205</if_sid>
-    <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell\.exe$|^C:\\\\WINDOWS\\\\SysWOW64\\\\WindowsPowerShell\\\\v1.0\\\\powershell\.exe$</field>
+    <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1\.0\\\\powershell\.exe$|^C:\\\\WINDOWS\\\\SysWOW64\\\\WindowsPowerShell\\\\v1\.0\\\\powershell\.exe$</field>
     <field name="win.eventdata.targetFilename" type="pcre2">(?i)^C:\\\\Windows\\\\SystemTemp\\\\__PSScriptPolicyTest</field>
     <options>no_full_log</options>
     <description>Exclude powershell acreating temporary file created by PowerShell to test script execution policies.</description>
@@ -158,6 +158,16 @@
     <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\ProgramData\\\\Microsoft\\\\Windows Defender\\\\Platform\\\\[A-Za-z0-9.-]+\\\\MsMpEng\.exe$</field>
     <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
     <description>Exclude Sysmon 11 and 13 noises : MsMpEng.exe.</description>
+    <options>no_full_log</options>
+  </rule>
+
+  <!-- Exclude Common Powershell Image Loading (other image path than rule 900102) -->
+  <rule id="990019" level="1">
+    <if_sid>106104</if_sid>
+    <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\SysWOW64\\\\WindowsPowerShell\\\\v1\.0\\\\powershell\.exe$</field>
+    <field name="win.eventdata.imageLoaded" type="pcre2">(?i)^C:\\\\Windows\\\\Microsoft\.NET\\\\Framework64\\\\v\d+\.\d+\.\d+\\\\clr\.dll$|(?i)^C:\\\\Windows\\\\Microsoft\.NET\\\\Framework64\\\\v\d+\.\d+\.\d+\\\\mscoreei\.dll$|(?i)^C:\\\\Windows\\\\Microsoft\.NET\\\\Framework64\\\\v\d+\.\d+\.\d+\\\\clrjit\.dll$|(?i)^C:\\\\Windows\\\\assembly\\\\NativeImages_v\d+\.\d+\.\d+_\d+\\\\System\.Mana[a-zA-Z0-9#]+\\\\[a-fA-F0-9]+\\\\System\.Management\.Automation\.ni\.dll$</field>
+    <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
+    <description>Exclude Common Powershell Image Loading.</description>
     <options>no_full_log</options>
   </rule>
 
