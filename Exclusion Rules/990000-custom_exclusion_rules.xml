@@ -165,7 +165,7 @@
   <rule id="990019" level="1">
     <if_sid>106104</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\SysWOW64\\\\WindowsPowerShell\\\\v1\.0\\\\powershell\.exe$</field>
-    <field name="win.eventdata.imageLoaded" type="pcre2">(?i)^C:\\\\Windows\\\\Microsoft\.NET\\\\Framework64\\\\v\d+\.\d+\.\d+\\\\clr\.dll$|(?i)^C:\\\\Windows\\\\Microsoft\.NET\\\\Framework64\\\\v\d+\.\d+\.\d+\\\\mscoreei\.dll$|(?i)^C:\\\\Windows\\\\Microsoft\.NET\\\\Framework64\\\\v\d+\.\d+\.\d+\\\\clrjit\.dll$|(?i)^C:\\\\Windows\\\\assembly\\\\NativeImages_v\d+\.\d+\.\d+_\d+\\\\System\.Mana[a-zA-Z0-9#]+\\\\[a-fA-F0-9]+\\\\System\.Management\.Automation\.ni\.dll$</field>
+    <field name="win.eventdata.imageLoaded" type="pcre2">(?i)^C:\\\\Windows\\\\Microsoft\.NET\\\\(Framework|Framework64)\\\\v\d+\.\d+\.\d+\\\\clr\.dll$|(?i)^C:\\\\Windows\\\\Microsoft\.NET\\\\(Framework|Framework64)\\\\v\d+\.\d+\.\d+\\\\mscoreei\.dll$|(?i)^C:\\\\Windows\\\\Microsoft\.NET\\\\(Framework|Framework64)\\\\v\d+\.\d+\.\d+\\\\clrjit\.dll$|(?i)^C:\\\\Windows\\\\assembly\\\\NativeImages_v\d+\.\d+\.\d+_\d+\\\\System\.Mana[a-zA-Z0-9#]+\\\\[a-fA-F0-9]+\\\\System\.Management\.Automation\.ni\.dll$</field>
     <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
     <description>Exclude Common Powershell Image Loading.</description>
     <options>no_full_log</options>
