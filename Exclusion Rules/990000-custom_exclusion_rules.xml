@@ -138,7 +138,7 @@
     <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\System32\\\\wbem\\\\WmiPrvSE\.exe$</field>
     <field name="win.eventdata.parentImage" type="pcre2">(?i)^C:\\\\Windows\\\\System32\\\\svchost\.exe$</field>
     <field name="win.eventdata.parentCommandLine" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\svchost\.exe -k DcomLaunch -p$</field>
-    <field name="win.eventdata.commandLine" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\wbem\\\\wmiprvse\.exe -secured -Embedding$</field>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\wbem\\\\wmiprvse\.exe (-secured -Embedding|-Embedding)$</field>
     <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$|^NT AUTHORITY\\\\NETWORK SERVICE$|^AUTORITE NT\\\\SERVICE RÉSEAU$</field>
     <description>Exclude EventID 1 noise: WMI standard Windows</description>
     <options>no_full_log</options>
@@ -168,6 +168,23 @@
     <field name="win.eventdata.imageLoaded" type="pcre2">(?i)^C:\\\\Windows\\\\Microsoft\.NET\\\\(Framework|Framework64)\\\\v\d+\.\d+\.\d+\\\\clr\.dll$|(?i)^C:\\\\Windows\\\\Microsoft\.NET\\\\(Framework|Framework64)\\\\v\d+\.\d+\.\d+\\\\mscoreei\.dll$|(?i)^C:\\\\Windows\\\\Microsoft\.NET\\\\(Framework|Framework64)\\\\v\d+\.\d+\.\d+\\\\clrjit\.dll$|(?i)^C:\\\\Windows\\\\assembly\\\\NativeImages_v\d+\.\d+\.\d+_\d+\\\\System\.Mana[a-zA-Z0-9#]+\\\\[a-fA-F0-9]+\\\\System\.Management\.Automation\.ni\.dll$</field>
     <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
     <description>Exclude Common Powershell Image Loading.</description>
+    <options>no_full_log</options>
+  </rule>
+
+  <!-- Exclude Wazuh Legitimate command -->
+  <rule id="990020" level="1">
+    <if_sid>92021,92032</if_sid>
+	<field name="win.eventdata.currentDirectory" type="pcre2">(?i)^C:\\\\Program Files \(x86\)\\\\ossec-agent</field>
+    <field name="win.eventdata.parentImage" type="pcre2">(?i)^C:\\\\Program Files \(x86\)\\\\ossec-agent\\\\wazuh-agent\.exe$|(?i)^C:\\\\Windows\\\\SysWOW64\\\\net\.exe$</field>
+    <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
+    <description>Exclude Wazuh Legitimate command.</description>
+    <options>no_full_log</options>
+  </rule>
+  
+  <rule id="900021" level="1">
+    <if_sid>130541</if_sid>
+    <field name="win.eventdata.scriptBlockText">^\$global:\?$</field>
+    <description>Exclude FPs</description>
     <options>no_full_log</options>
   </rule>
 
