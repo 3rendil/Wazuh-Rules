@@ -183,7 +183,7 @@
   
   <rule id="900021" level="1">
     <if_sid>130541</if_sid>
-    <field name="win.eventdata.scriptBlockText">^\$global:\?$</field>
+    <field name="win.eventdata.scriptBlockText" type="pcre2">(?i)^\$global:\?$</field>
     <description>Exclude FPs</description>
     <options>no_full_log</options>
   </rule>
