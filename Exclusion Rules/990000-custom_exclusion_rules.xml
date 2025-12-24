@@ -190,15 +190,8 @@
     <description>Exclude Wazuh Legitimate command (SCA).</description>
     <options>no_full_log</options>
   </rule>
-  
-  <rule id="900022" level="1">
-    <if_sid>130541</if_sid>
-    <field name="win.eventdata.scriptBlockText" type="pcre2">(?i)^\$global:\?$</field>
-    <description>Exclude FPs</description>
-    <options>no_full_log</options>
-  </rule>
 
-  <rule id="990023" level="1">
+  <rule id="990022" level="1">
     <if_group>sysmon_event_22</if_group>
     <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Program Files \(x86\)\\\\Microsoft\\\\Edge\\\\Application\\\\msedge\.exe$</field>
     <field name="win.eventdata.queryName" type="pcre2">(?i)^wpad$</field>
