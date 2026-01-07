@@ -208,6 +208,22 @@
     <options>no_full_log</options>
   </rule>
 
+  <rule id="990024" level="1">
+    <if_sid>100100</if_sid>
+    <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\System32\\\\wevtutil\.exe$</field>
+	<field name="win.eventdata.parentImage" type="pcre2">(?i)^C:\\\\ProgramData\\\\Microsoft\\\\Windows Defender\\\\Platform\\\\[A-Za-z0-9.-]+\\\\MsMpEng\.exe$</field>
+    <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
+    <description>Exclude Process creation Eventing Command Line Utility noises : MsMpEng.exe.</description>
+    <options>no_full_log</options>
+  </rule>
+  
+  <rule id="990025" level="1">
+    <if_sid>92200</if_sid>
+    <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\System32\\\\wwahost\.exe$</field>
+    <description>Exclude wwahost noises.</description>
+    <options>no_full_log</options>
+  </rule>
+
   <!-- ========== Linux Custom Exclusion rules =========== -->
 
   <!-- Exclude Wazuh Legitimate command -->
