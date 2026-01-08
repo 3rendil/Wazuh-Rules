@@ -224,6 +224,14 @@
     <options>no_full_log</options>
   </rule>
 
+  <rule id="990026" level="1">
+    <if_sid>100503</if_sid>
+	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1\.0\\\\powershell\.exe$|^C:\\\\WINDOWS\\\\SysWOW64\\\\WindowsPowerShell\\\\v1\.0\\\\powershell\.exe$</field>
+	<field name="win.eventdata.parentImage" type="pcre2">(?i)^C:\\\\Windows\\\\System32\\\\CompatTelRunner\.exe$</field>
+    <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
+    <description>Exclude legitimate PowerShell execution launched by Windows CompatTelRunner telemetry</description>
+  </rule>
+
   <!-- ========== Linux Custom Exclusion rules =========== -->
 
   <!-- Exclude Wazuh Legitimate command -->
