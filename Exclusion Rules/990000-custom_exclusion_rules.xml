@@ -123,7 +123,7 @@
     <if_group>sysmon_event_13|sysmon</if_group>
 	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\userinit\.exe$</field>
 	<field name="win.eventdata.targetObject" type="pcre2">(?i)HKLM\\\\System\\\\CurrentControlSet\\\\Services\\\\bam\\\\State\\\\UserSettings\\\\.*HarddiskVolume[0-9]\\\\Windows\\\\explorer\.exe$</field>
-	<field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
+	<!--<field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>-->
     <description>Exclude noise: Multiple Sysmon Event 13 from winlogon.exe on common registry key (e.g., during logon)</description>
     <options>no_full_log</options>
   </rule>
