@@ -84,15 +84,51 @@
   </rule>
 
   <rule id="990010" level="1">
-    <if_sid>112143</if_sid>
+    <if_group>sysmon_event_13|sysmon</if_group>
 	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\smss\.exe$</field>
-	<field name="win.eventdata.targetObject" type="pcre2">(?i)HKLM\\\\System\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Environment\\\\(NUMBER_OF_PROCESSORS|OS|PROCESSOR_ARCHITECTURE|PROCESSOR_LEVEL|PROCESSOR_IDENTIFIER|PROCESSOR_REVISION)$</field>
+	<field name="win.eventdata.targetObject" type="pcre2">(?i)HKLM\\\\System\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Environment\\\\(NUMBER_OF_PROCESSORS|OS|PROCESSOR_ARCHITECTURE|PROCESSOR_LEVEL|PROCESSOR_IDENTIFIER|PROCESSOR_REVISION)$|(?i)HKLM\\\\System\\\\CurrentControlSet\\\\Services\\\\bam\\\\State\\\\UserSettings\\\\S-1-5-18.*HarddiskVolume[0-9]\\\\Windows\\\\System32\\\\csrss\.exe$</field>
 	<field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
     <description>Exclude noise: Multiple Sysmon Event 13 from smss.exe on common registry key (e.g., during logon)</description>
     <options>no_full_log</options>
   </rule>
   
   <rule id="990011" level="1">
+    <if_group>sysmon_event_13|sysmon</if_group>
+	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\csrss\.exe$</field>
+	<field name="win.eventdata.targetObject" type="pcre2">(?i)HKLM\\\\System\\\\CurrentControlSet\\\\Services\\\\BasicDisplay\\\\(Video\\\\Service|VolatileSettings\\\\^\{?[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}\}?$)$</field>
+	<field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
+    <description>Exclude noise: Multiple Sysmon Event 13 from csrss.exe on common registry key (e.g., during logon)</description>
+    <options>no_full_log</options>
+  </rule>
+  
+  <rule id="990012" level="1">
+    <if_group>sysmon_event_13|sysmon</if_group>
+	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\wininit\.exe$</field>
+	<field name="win.eventdata.targetObject" type="pcre2">(?i)HKLM\\\\System\\\\CurrentControlSet\\\\Services\\\\Tcpip\\\\Parameters\\\\(Hostname|NV Hostname)$</field>
+	<field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
+    <description>Exclude noise: Multiple Sysmon Event 13 from wininit.exe on common registry key (e.g., during logon)</description>
+    <options>no_full_log</options>
+  </rule>
+  
+  <rule id="990013" level="1">
+    <if_group>sysmon_event_13|sysmon</if_group>
+	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\winlogon\.exe$</field>
+	<field name="win.eventdata.targetObject" type="pcre2">(?i)HKLM\\\\System\\\\CurrentControlSet\\\\Services\\\\bam\\\\State\\\\UserSettings\\\\S-1-5-90-0-1.*HarddiskVolume[0-9]\\\\Windows\\\\System32\\\\dwm\.exe$</field>
+	<field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
+    <description>Exclude noise: Multiple Sysmon Event 13 from winlogon.exe on common registry key (e.g., during logon)</description>
+    <options>no_full_log</options>
+  </rule>
+  
+  <rule id="990014" level="1">
+    <if_group>sysmon_event_13|sysmon</if_group>
+	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\userinit\.exe$</field>
+	<field name="win.eventdata.targetObject" type="pcre2">(?i)HKLM\\\\System\\\\CurrentControlSet\\\\Services\\\\bam\\\\State\\\\UserSettings\\\\.*HarddiskVolume[0-9]\\\\Windows\\\\explorer\.exe$</field>
+	<field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
+    <description>Exclude noise: Multiple Sysmon Event 13 from winlogon.exe on common registry key (e.g., during logon)</description>
+    <options>no_full_log</options>
+  </rule>
+	
+  <rule id="990015" level="1">
     <if_sid>112143</if_sid>
 	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\wevtutil\.exe$</field>
 	<field name="win.eventdata.targetObject" type="pcre2">(?i)HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\WINEVT\\\\Channels\\\\[^\\\\]+\\\\(OwningPublisher|Enabled|Isolation|ChannelAccess|MaxSize|MaxSizeUpper|Type)$</field>
@@ -101,7 +137,7 @@
     <options>no_full_log</options>
   </rule>
 
-  <rule id="990012" level="3">
+  <rule id="990016" level="3">
     <if_sid>61618</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\svchost\.exe$</field>
 	<match>LocalService</match>
@@ -109,7 +145,7 @@
     <description>Ignore svchost.exe boot-time processes (false positive)</description>
   </rule>
 
-  <rule id="990013" level="1">
+  <rule id="990017" level="1">
     <if_group>sysmon_event_13|sysmon</if_group>
     <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\winsxs\\\\amd64_microsoft-windows-servicingstack_[A-Za-z0-9\-\.]+(?:_[A-Za-z0-9\-\.]+)*\\\\TiWorker\.exe$</field>
     <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
@@ -117,7 +153,7 @@
     <options>no_full_log</options>
   </rule>
 
-  <rule id="990014" level="1">
+  <rule id="990018" level="1">
     <if_group>sysmon_event_13</if_group>
     <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\System32\\\\spoolsv\.exe$</field>
     <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
@@ -125,7 +161,7 @@
     <options>no_full_log</options>
   </rule>
 	
-  <rule id="990015" level="1">
+  <rule id="990019" level="1">
     <if_sid>92205</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1\.0\\\\powershell\.exe$|^C:\\\\WINDOWS\\\\SysWOW64\\\\WindowsPowerShell\\\\v1\.0\\\\powershell\.exe$</field>
     <field name="win.eventdata.targetFilename" type="pcre2">(?i)^C:\\\\Windows\\\\SystemTemp\\\\__PSScriptPolicyTest</field>
@@ -133,7 +169,7 @@
     <description>Exclude powershell acreating temporary file created by PowerShell to test script execution policies.</description>
   </rule>
 
-  <rule id="990016" level="1">
+  <rule id="990020" level="1">
     <if_sid>100125</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\System32\\\\wbem\\\\WmiPrvSE\.exe$</field>
     <field name="win.eventdata.parentImage" type="pcre2">(?i)^C:\\\\Windows\\\\System32\\\\svchost\.exe$</field>
@@ -144,7 +180,7 @@
     <options>no_full_log</options>
   </rule>
   
-  <rule id="990017" level="1">
+  <rule id="990021" level="1">
     <if_sid>92154</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\System32\\\\svchost\.exe$|^C:\\\\Windows\\\\System32\\\\taskhostw\.exe$|^C:\\\\Windows\\\\System32\\\\MoUsoCoreWorker\.exe$|^C:\\\\Windows\\\\System32\\\\sppsvc\.exe$|^C:\\\\Windows\\\\System32\\\\CompatTelRunner\.exe$|^C:\\\\Windows\\\\System32\\\\DeviceCensus\.exe$|^C:\\\\Windows\\\\System32\\\\SrTasks\.exe$|^C:\\\\Windows\\\\System32\\\\WaaSMedicAgent\.exe$|^C:\\\\Windows\\\\Microsoft\.NET\\\\Framework\\\\v4\.0\.30319\\\\ngen\.exe$|^C:\\\\ProgramData\\\\Microsoft\\\\Windows Defender\\\\Platform\\\\[A-Za-z0-9.-]+\\\\MsMpEng\.exe$||^C:\\\\Program Files \(x86\)\\\\Microsoft\\\\EdgeUpdate\\\\MicrosoftEdgeUpdate\.exe$</field>
 	<field name="win.eventdata.imageLoaded" type="pcre2">(?i)^C:\\\\Windows\\\\(system32|SysWOW64)\\\\taskschd\.dll$</field>
@@ -153,7 +189,7 @@
     <options>no_full_log</options>
   </rule>
 
-  <rule id="990018" level="1">
+  <rule id="990022" level="1">
     <if_group>sysmon_event_13|sysmon_event_11</if_group>
     <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\ProgramData\\\\Microsoft\\\\Windows Defender\\\\Platform\\\\[A-Za-z0-9.-]+\\\\MsMpEng\.exe$</field>
     <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
@@ -162,7 +198,7 @@
   </rule>
 
   <!-- Exclude Common Powershell Image Loading (other image path than rule 900102) -->
-  <rule id="990019" level="1">
+  <rule id="990023" level="1">
     <if_sid>106104</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\SysWOW64\\\\WindowsPowerShell\\\\v1\.0\\\\powershell\.exe$</field>
     <field name="win.eventdata.imageLoaded" type="pcre2">(?i)^C:\\\\Windows\\\\Microsoft\.NET\\\\(Framework|Framework64)\\\\v\d+\.\d+\.\d+\\\\clr\.dll$|(?i)^C:\\\\Windows\\\\Microsoft\.NET\\\\(Framework|Framework64)\\\\v\d+\.\d+\.\d+\\\\mscoreei\.dll$|(?i)^C:\\\\Windows\\\\Microsoft\.NET\\\\(Framework|Framework64)\\\\v\d+\.\d+\.\d+\\\\clrjit\.dll$|(?i)^C:\\\\Windows\\\\assembly\\\\NativeImages_v\d+\.\d+\.\d+_\d+\\\\System\.Mana[a-zA-Z0-9#]+\\\\[a-fA-F0-9]+\\\\System\.Management\.Automation\.ni\.dll$</field>
@@ -172,7 +208,7 @@
   </rule>
 
   <!-- Exclude Wazuh Legitimate command -->
-  <rule id="990020" level="1">
+  <rule id="990024" level="1">
     <if_sid>92021,92031</if_sid>
 	<field name="win.eventdata.currentDirectory" type="pcre2">(?i)^C:\\\\Program Files \(x86\)\\\\ossec-agent\\\\$</field>
     <field name="win.eventdata.Image" type="pcre2">(?i)^C:\\\\Program Files \(x86\)\\\\ossec-agent\\\\wazuh-agent\.exe$|(?i)^C:\\\\Windows\\\\SysWOW64\\\\net\.exe$|(?i)^C:\\\\Windows\\\\SysWOW64\\\\net1\.exe$</field>
@@ -181,7 +217,7 @@
     <options>no_full_log</options>
   </rule>
 
-  <rule id="990021" level="1">
+  <rule id="990025" level="1">
     <if_sid>92021</if_sid>
 	<field name="win.eventdata.currentDirectory" type="pcre2">(?i)^C:\\\\Program Files \(x86\)\\\\ossec-agent\\\\$</field>
     <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\SysWOW64\\\\WindowsPowerShell\\\\v1\.0\\\\powershell\.exe$</field>
@@ -191,7 +227,7 @@
     <options>no_full_log</options>
   </rule>
 
-  <rule id="990022" level="1">
+  <rule id="990026" level="1">
     <if_group>sysmon_event_22</if_group>
     <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Program Files \(x86\)\\\\Microsoft\\\\Edge\\\\Application\\\\msedge\.exe$</field>
     <field name="win.eventdata.queryName" type="pcre2">(?i)^wpad$</field>
@@ -200,7 +236,7 @@
   </rule>
 
   <!-- Exclude Commons and noises MpDefenderCoreService Events -->
-  <rule id="990023" level="1">
+  <rule id="990027" level="1">
     <if_sid>102138,106104</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\ProgramData\\\\Microsoft\\\\Windows Defender\\\\Platform\\\\[A-Za-z0-9.-]+\\\\MpDefenderCoreService\.exe$</field>
     <field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
@@ -208,7 +244,7 @@
     <options>no_full_log</options>
   </rule>
 
-  <rule id="990024" level="1">
+  <rule id="990028" level="1">
     <if_sid>100100</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\System32\\\\wevtutil\.exe$</field>
 	<field name="win.eventdata.parentImage" type="pcre2">(?i)^C:\\\\ProgramData\\\\Microsoft\\\\Windows Defender\\\\Platform\\\\[A-Za-z0-9.-]+\\\\MsMpEng\.exe$</field>
@@ -217,14 +253,14 @@
     <options>no_full_log</options>
   </rule>
   
-  <rule id="990025" level="1">
+  <rule id="990029" level="1">
     <if_sid>92200</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\System32\\\\wwahost\.exe$</field>
     <description>Exclude wwahost noises.</description>
     <options>no_full_log</options>
   </rule>
 
-  <rule id="990026" level="1">
+  <rule id="990030" level="1">
     <if_sid>100503</if_sid>
 	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1\.0\\\\powershell\.exe$|^C:\\\\WINDOWS\\\\SysWOW64\\\\WindowsPowerShell\\\\v1\.0\\\\powershell\.exe$</field>
 	<field name="win.eventdata.parentImage" type="pcre2">(?i)^C:\\\\Windows\\\\System32\\\\CompatTelRunner\.exe$</field>
