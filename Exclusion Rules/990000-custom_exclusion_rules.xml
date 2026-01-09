@@ -95,7 +95,7 @@
   <rule id="990011" level="1">
     <if_group>sysmon_event_13|sysmon</if_group>
 	<field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\csrss\.exe$</field>
-	<field name="win.eventdata.targetObject" type="pcre2">(?i)HKLM\\\\System\\\\CurrentControlSet\\\\Services\\\\BasicDisplay\\\\(Video\\\\Service|VolatileSettings\\\\^\{?[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}\}?$)$</field>
+	<field name="win.eventdata.targetObject" type="pcre2">(?i)HKLM\\\\System\\\\CurrentControlSet\\\\Services\\\\BasicDisplay\\\\(Video\\\\Service|VolatileSettings\\\\\{?[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}\}?$)$</field>
 	<field name="win.eventdata.user" type="pcre2">(?i)^NT AUTHORITY\\\\SYSTEM$|^AUTORITE NT\\\\Système$</field>
     <description>Exclude noise: Multiple Sysmon Event 13 from csrss.exe on common registry key (e.g., during logon)</description>
     <options>no_full_log</options>
