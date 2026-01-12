@@ -276,6 +276,14 @@
     <options>no_full_log</options>
   </rule>
 
+  <rule id="990032" level="1">
+    <if_sid>100606</if_sid>
+    <field name="win.eventdata.parentImage" type="pcre2">(?i)^C:\\\\Windows\\\\system32\\\\cleanmgr\.exe</field>
+    <field name="win.eventdata.company" type="pcre2">^Microsoft Corporation$</field>
+    <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Users\\\\.*\\\\AppData\\\\Local\\\\Temp\\\\.*\\\\DismHost\.exe</field>
+    <description>False positive – Legitimate DismHost.exe launched by cleanmgr.exe</description>
+    <options>no_full_log</options>
+  </rule>
   <!-- ========== Linux Custom Exclusion rules =========== -->
 
   <!-- Exclude Wazuh Legitimate command -->
