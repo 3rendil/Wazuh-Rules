@@ -270,7 +270,7 @@
 
   <rule id="990031" level="1">
     <if_group>sysmon_event_10</if_group>
-    <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Windows\\\\Microsoft\.NET\\\\(Framework|Framework64)\\\\v4\.0\.30319\\\\NGenTask\.exe$|^C:\\\\Windows\\\\system32\\\\taskhostw\.exe$</field>
+    <field name="win.eventdata.sourceImage" type="pcre2">(?i)^C:\\\\Windows\\\\Microsoft\.NET\\\\(Framework|Framework64)\\\\v4\.0\.30319\\\\NGenTask\.exe$|^C:\\\\Windows\\\\system32\\\\taskhostw\.exe$</field>
     <field name="win.eventdata.targetImage" type="pcre2">(?i)^C:\\\\Windows\\\\Microsoft\.NET\\\\(Framework|Framework64)\\\\v4\.0\.30319\\\\(NGenTask|ngen)\.exe$</field>
     <description>Exclude EventID 10 when NGenTask.exe or taskhostw.exe Access to NGenTask.exe or ngen.exe.</description>
     <options>no_full_log</options>
