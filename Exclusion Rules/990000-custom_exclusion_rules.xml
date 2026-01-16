@@ -229,7 +229,7 @@
 
   <rule id="990026" level="1">
     <if_group>sysmon_event_22</if_group>
-    <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Program Files \(x86\)\\\\Microsoft\\\\Edge\\\\Application\\\\msedge\.exe$</field>
+    <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Program Files \(x86\)\\\\Microsoft\\\\Edge\\\\Application\\\\msedge\.exe$|^C:\\\\Windows\\\\System32\\\\svchost\.exe$</field>
     <field name="win.eventdata.queryName" type="pcre2">(?i)^wpad$</field>
     <description>Exclude Sysmon 22 noise: MSedge WPAD (Web Proxy Auto-Discovery) DNS Request.</description>
     <options>no_full_log</options>
