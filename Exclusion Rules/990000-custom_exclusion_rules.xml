@@ -302,12 +302,19 @@
     <options>no_full_log</options>
   </rule>
 
-  <!-- Exclude OneDrive Update Noises -->
+  <!-- Exclude OneDrive Noises -->
   <rule id="990035" level="1">
-    <if_sid>100105,102138,61644,92200,92154,112143,92200</if_sid>
-    <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Users\\\\[^\\\\]+\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\[^\\\\]+\\\\(OneDriveSetup|FileSyncConfig|OneDrive\.Sync\.Service)\.exe$</field>
+    <if_sid>100105,92200,92154</if_sid>
+    <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Users\\\\[^\\\\]+\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\[^\\\\]+\\\\(OneDriveSetup|FileSyncConfig|OneDrive\.Sync\.Service)\.exe$|^C:\\\\Users\\\\[^\\\\]+\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\OneDriveStandaloneUpdater\.exe$</field>
     <field name="win.eventdata.company" type="pcre2">(?i)^Microsoft Corporation$</field>
-    <description>Exclude events noises for some legit programs used by OneDrive Update</description>
+    <description>Exclude events noises for some legit programs used by OneDrive</description>
+    <options>no_full_log</options>
+  </rule>
+  
+  <rule id="990036" level="1">
+    <if_sid>102138,61644,112143</if_sid>
+    <field name="win.eventdata.image" type="pcre2">(?i)^C:\\\\Users\\\\[^\\\\]+\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\[^\\\\]+\\\\(OneDrive\.Sync\.Service|FileSyncConfig)\.exe$|^C:\\\\Users\\\\[^\\\\]+\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\OneDriveStandaloneUpdater\.exe$</field>
+    <description>Exclude events noises for some legit programs used by OneDrive</description>
     <options>no_full_log</options>
   </rule>
   <!-- ========== Linux Custom Exclusion rules =========== -->
